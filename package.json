@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/msn0/vrtc/issues"
   },
-  "homepage": "https://github.com/msn0/vrtc#readme"
+  "homepage": "https://github.com/msn0/vrtc#readme",
+  "devDependencies": {
+    "eslint-config-helmut": "^3.0.0"
+  }
 }
