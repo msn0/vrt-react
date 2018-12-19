@@ -1,6 +1,7 @@
 'use strict';
 
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     mode: 'development',
@@ -18,5 +19,10 @@ module.exports = {
                 loader: 'babel-loader'
             }
         ]
-    }
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            filename: path.resolve(__dirname, 'dist', 'badge.component.html')
+        })
+    ]
 };

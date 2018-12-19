@@ -17,7 +17,18 @@
   },
   "homepage": "https://github.com/msn0/vrtc#readme",
   "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.0",
+    "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.4",
-    "eslint-config-helmut": "^3.0.0"
+    "eslint-config-helmut": "^3.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "webpack": "^4.27.1",
+    "webpack-cli": "^3.1.2"
+  },
+  "dependencies": {
+    "jest": "^23.6.0",
+    "puppeteer": "^1.11.0",
+    "webpack-dev-server": "^3.1.10"
   }
 }
