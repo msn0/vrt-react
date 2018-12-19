@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/msn0/vrtc#readme",
   "devDependencies": {
+    "babel-loader": "^8.0.4",
     "eslint-config-helmut": "^3.0.0"
   }
 }
