@@ -1,4 +1,7 @@
+const { toMatchImageSnapshot } = require('jest-image-snapshot');
 const puppeteer = require('puppeteer');
+
+expect.extend({ toMatchImageSnapshot });
 
 describe('VRT', () => {
     let browser;
@@ -11,7 +14,7 @@ describe('VRT', () => {
         const page = await browser.newPage();
         await page.setViewport({ width: 600, height: 400 });
 
-        await page.goto('http://localhost:8080/');
+        await page.goto('http://localhost:8080/badge.component.html');
         const image = await page.screenshot();
 
         expect(image).toMatchImageSnapshot({

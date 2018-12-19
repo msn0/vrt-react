@@ -27,7 +27,10 @@
     "webpack-cli": "^3.1.2"
   },
   "dependencies": {
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
     "jest": "^23.6.0",
+    "jest-image-snapshot": "^2.7.0",
     "puppeteer": "^1.11.0",
     "webpack-dev-server": "^3.1.10"
   }

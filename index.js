@@ -16,5 +16,5 @@ const server = new WebpackDevServer(compiler, devServerOptions);
 server.listen(8080, '127.0.0.1', () => {
     console.log('Starting server on http://localhost:8080');
 
-    jest.run(['--detectOpenHandles', 'test.js']);
+    jest.run(['test.js', '-u']);
 });
