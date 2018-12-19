@@ -1,0 +1,19 @@
+{
+  "name": "vrtc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/msn0/vrtc.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/msn0/vrtc/issues"
+  },
+  "homepage": "https://github.com/msn0/vrtc#readme"
+}
