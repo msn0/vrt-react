@@ -17,9 +17,7 @@ describe('VRT', () => {
         await page.goto('http://localhost:8080/badge.component.html');
         const image = await page.screenshot();
 
-        expect(image).toMatchImageSnapshot({
-            customSnapshotIdentifier: '600x400'
-        });
+        expect(image).toMatchImageSnapshot();
     });
 
     afterAll(async () => {
