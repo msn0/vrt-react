@@ -14,10 +14,13 @@ describe('VRT', () => {
         const page = await browser.newPage();
         await page.setViewport({ width: 600, height: 400 });
 
-        await page.goto('http://localhost:64672/badge.component.html');
+        await page.goto('http://localhost:50789/badge.component.html');
         const image = await page.screenshot();
 
-        expect(image).toMatchImageSnapshot();
+        expect(image).toMatchImageSnapshot({
+            customSnapshotsDir: '/Users/michal.jezierski/work/vrtc/src/components/badge/__screenshots__',
+            customSnapshotIdentifier: 'badge.component'
+        });
     });
 
     afterAll(async () => {

@@ -17,7 +17,10 @@ describe('VRT', () => {
         await page.goto('http://localhost:<%= port %>/<%= file %>');
         const image = await page.screenshot();
 
-        expect(image).toMatchImageSnapshot();
+        expect(image).toMatchImageSnapshot({
+            customSnapshotsDir: '<%= screensDir %>',
+            customSnapshotIdentifier: '<%= snapshotName %>'
+        });
     });
 
     afterAll(async () => {

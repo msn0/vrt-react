@@ -26,7 +26,9 @@ glob('**/vrt.json', { absolute: true }, (error, files) => {
         const testTemplate = ejs.compile(fs.readFileSync('./test-template.js', 'UTF-8'));
         const testFileContent = testTemplate({
             port,
-            file: componentName + '.html'
+            file: componentName + '.html',
+            screensDir: componentDir + '/__screenshots__',
+            snapshotName: componentName
         });
         const entryTemplate = ejs.compile(fs.readFileSync('./entry-template.js', 'UTF-8'));
         const entryFileContent = entryTemplate({ componentFile });
