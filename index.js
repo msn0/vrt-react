@@ -12,15 +12,11 @@ const path = require('path');
 
 glob('**/vrt.json', { absolute: true }, (error, files) => {
     files.forEach(async (configFile) => {
-        // const compiler = Webpack(webpackConfig);
-        // const devServerOptions = Object.assign({}, webpackConfig.devServer);
-        // const server = new WebpackDevServer(compiler, devServerOptions);
         const config = require(configFile);
         const componentDir = path.dirname(configFile);
         const vrtDir = path.resolve(componentDir, '.vrt');
         const componentFile = path.resolve(componentDir, config.main);
         const componentName = path.basename(componentFile, '.js');
-        const testFilePath = path.resolve(vrtDir, componentName + '.test.js');
 
         if (!fs.existsSync(vrtDir)) {
             fs.mkdirSync(vrtDir);
@@ -32,17 +28,25 @@ glob('**/vrt.json', { absolute: true }, (error, files) => {
             port,
             file: componentName + '.html'
         });
+        const entryTemplate = ejs.compile(fs.readFileSync('./entry-template.js', 'UTF-8'));
+        const entryFileContent = entryTemplate({ componentFile });
 
-        fs.writeFileSync(testFilePath, testFileContent);
+        fs.writeFileSync(path.resolve(vrtDir, componentName + '.test.js'), testFileContent);
+        fs.writeFileSync(path.resolve(vrtDir, componentName + '.entry.js'), entryFileContent);
 
-        // console.log(configFilePath, port, componentDir, require(configFilePath));
+        const compiler = Webpack(webpackConfig({
+            componentName,
+            entry: path.resolve(vrtDir, componentName + '.entry.js'),
+            outputPath: vrtDir,
+            outputFilename: componentName + '.bundle.js'
+        }));
+        const devServerOptions = Object.assign({}, webpackConfig.devServer);
+        const server = new WebpackDevServer(compiler, devServerOptions);
 
-        // console.log(template({ port, file }));
-
-        // server.listen(port, '127.0.0.1', () => {
-        //     jest
-        //         .run(['--detectOpenHandles', `--port ${port}`, '\.vrt\/.+\.test\.js'])
-        //         .then(() => server.close());
-        // });
+        server.listen(port, '127.0.0.1', () => {
+            jest
+                .run(['--detectOpenHandles', '\.vrt\/.+\.test\.js'])
+                .then(() => server.close());
+        });
     });
 });

@@ -14,7 +14,7 @@ describe('VRT', () => {
         const page = await browser.newPage();
         await page.setViewport({ width: 600, height: 400 });
 
-        await page.goto('http://localhost:57226/badge.component.html');
+        await page.goto('http://localhost:64672/badge.component.html');
         const image = await page.screenshot();
 
         expect(image).toMatchImageSnapshot();

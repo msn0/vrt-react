@@ -3,27 +3,29 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.exports = {
-    mode: 'production',
-    entry: './entry',
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'badge.component.js',
-        publicPath: '',
-        libraryTarget: 'umd'
-    },
-    module: {
-        rules: [
-            {
-                test: /.*\.js$/,
-                exclude: /node_modules/,
-                loader: 'babel-loader'
-            }
+module.exports = function ({ entry, outputPath, outputFilename, componentName }) {
+    return {
+        mode: 'production',
+        entry,
+        output: {
+            path: path.resolve(__dirname, outputPath),
+            filename: outputFilename,
+            publicPath: '',
+            libraryTarget: 'umd'
+        },
+        module: {
+            rules: [
+                {
+                    test: /.*\.js$/,
+                    exclude: /node_modules/,
+                    loader: 'babel-loader'
+                }
+            ]
+        },
+        plugins: [
+            new HtmlWebpackPlugin({
+                filename: path.resolve(__dirname, outputPath, componentName + '.html')
+            })
         ]
-    },
-    plugins: [
-        new HtmlWebpackPlugin({
-            filename: path.resolve(__dirname, 'dist', 'badge.component.html')
-        })
-    ]
+    };
 };
