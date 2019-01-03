@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "bin": {
-      "vrtc": "index.js"
+      "vrtc": "./index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
