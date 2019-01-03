@@ -1,4 +1,4 @@
-'use strict';
+#!/usr/bin/env node
 
 const Webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server/lib/Server');
@@ -23,14 +23,14 @@ glob('./**/vrt.json', { absolute: true }, (error, files) => {
         }
 
         const port = await getPort();
-        const testTemplate = ejs.compile(fs.readFileSync('./test-template.js', 'UTF-8'));
+        const testTemplate = ejs.compile(fs.readFileSync(path.resolve(__dirname, './test-template.js'), 'UTF-8'));
         const testFileContent = testTemplate({
             port,
             file: componentName + '.html',
             screensDir: componentDir + '/__screenshots__',
             snapshotName: componentName
         });
-        const entryTemplate = ejs.compile(fs.readFileSync('./entry-template.js', 'UTF-8'));
+        const entryTemplate = ejs.compile(fs.readFileSync(path.resolve(__dirname, './entry-template.js'), 'UTF-8'));
         const entryFileContent = entryTemplate({ componentFile });
 
         fs.writeFileSync(path.resolve(vrtDir, componentName + '.test.js'), testFileContent);
