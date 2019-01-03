@@ -7,10 +7,10 @@ const jest = require('jest');
 const glob = require('glob');
 const getPort = require('get-port');
 const ejs = require('ejs');
-const fs = require('fs');
+const fs = require('fs-extra');
 const path = require('path');
 
-glob('**/vrt.json', { absolute: true }, (error, files) => {
+glob('./**/vrt.json', { absolute: true }, (error, files) => {
     files.forEach(async (configFile) => {
         const config = require(configFile);
         const componentDir = path.dirname(configFile);
@@ -48,7 +48,10 @@ glob('**/vrt.json', { absolute: true }, (error, files) => {
         server.listen(port, '127.0.0.1', () => {
             jest
                 .run(['--detectOpenHandles', '\.vrt\/.+\.test\.js'])
-                .then(() => server.close());
+                .then(() => {
+                    server.close();
+                    fs.removeSync(vrtDir);
+                });
         });
     });
 });
