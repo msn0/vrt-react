@@ -10,6 +10,10 @@ const ejs = require('ejs');
 const fs = require('fs-extra');
 const path = require('path');
 
+const devServerOptions = Object.assign({}, webpackConfig.devServer);
+const testTemplate = ejs.compile(fs.readFileSync(path.resolve(__dirname, './test-template.js'), 'UTF-8'));
+const entryTemplate = ejs.compile(fs.readFileSync(path.resolve(__dirname, './entry-template.js'), 'UTF-8'));
+
 glob('./**/vrt.json', { absolute: true }, (error, files) => {
     files.forEach(async (configFile) => {
         const config = require(configFile);
@@ -23,14 +27,12 @@ glob('./**/vrt.json', { absolute: true }, (error, files) => {
         }
 
         const port = await getPort();
-        const testTemplate = ejs.compile(fs.readFileSync(path.resolve(__dirname, './test-template.js'), 'UTF-8'));
         const testFileContent = testTemplate({
             port,
             file: componentName + '.html',
             screensDir: componentDir + '/__screenshots__',
             snapshotName: componentName
         });
-        const entryTemplate = ejs.compile(fs.readFileSync(path.resolve(__dirname, './entry-template.js'), 'UTF-8'));
         const entryFileContent = entryTemplate({ componentFile });
 
         fs.writeFileSync(path.resolve(vrtDir, componentName + '.test.js'), testFileContent);
@@ -42,12 +44,16 @@ glob('./**/vrt.json', { absolute: true }, (error, files) => {
             outputPath: vrtDir,
             outputFilename: componentName + '.bundle.js'
         }));
-        const devServerOptions = Object.assign({}, webpackConfig.devServer);
+
         const server = new WebpackDevServer(compiler, devServerOptions);
 
-        server.listen(port, '127.0.0.1', () => {
+        server.listen(port, 'localhost', () => {
             jest
-                .run(['--detectOpenHandles', '\.vrt\/.+\.test\.js'])
+                .run([
+                    '--detectOpenHandles',
+                    '--config', path.resolve(__dirname, 'jest.config.js'),
+                    componentName + '\.test\.js'
+                ])
                 .then(() => {
                     server.close();
                     fs.removeSync(vrtDir);

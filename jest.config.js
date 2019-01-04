@@ -1,3 +1,5 @@
 'use strict';
 
-module.exports = {};
+module.exports = {
+    // reporters: ['<rootDir>/custom-reporter.js']
+};

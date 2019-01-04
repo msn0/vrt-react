@@ -3,7 +3,7 @@ const puppeteer = require('puppeteer');
 
 expect.extend({ toMatchImageSnapshot });
 
-describe('VRT', () => {
+describe('<%= snapshotName %>', () => {
     let browser;
 
     beforeAll(async () => {
@@ -12,10 +12,11 @@ describe('VRT', () => {
 
     it('600', async () => {
         const page = await browser.newPage();
-        await page.setViewport({ width: 600, height: 400 });
+        // await page.setViewport({ width: 600, height: 400 });
 
         await page.goto('http://localhost:<%= port %>/<%= file %>');
-        const image = await page.screenshot();
+        const element = await page.waitForSelector('body > *');
+        const image = await element.screenshot();
 
         expect(image).toMatchImageSnapshot({
             customSnapshotsDir: '<%= screensDir %>',
