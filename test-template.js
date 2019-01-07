@@ -7,14 +7,17 @@ describe('<%= screensDir %>', () => {
     let browser;
 
     beforeAll(async () => {
-        jest.setTimeout(90000);
+        jest.setTimeout(60000);
         browser = await puppeteer.launch();
     });
 
     it('<%= snapshotName %>', async () => {
         const page = await browser.newPage();
 
-        await page.goto('http://localhost:<%= port %>/<%= file %>');
+        await page.goto('http://localhost:<%= port %>/<%= file %>', {
+            waitUntil: 'networkidle2',
+            timeout: 0
+        });
         const element = await page.waitForSelector('body > *');
         const image = await element.screenshot();
 

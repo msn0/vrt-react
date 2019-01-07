@@ -38,7 +38,7 @@ glob(path.resolve('./**/vrt.json'), { absolute: true }, (error, files) => {
         const testFileContent = testTemplate({
             port,
             file: componentName + '.html',
-            screensDir: componentDir + '/__screenshots__',
+            screensDir: path.resolve(componentDir, '__screenshots__'),
             snapshotName: componentName
         });
         const entryFileContent = entryTemplate({ componentFile });
@@ -58,12 +58,13 @@ glob(path.resolve('./**/vrt.json'), { absolute: true }, (error, files) => {
         server.listen(port, 'localhost', async () => {
             await jest.run([
                 '--silent',
+                '--verbose',
+                '--updateSnapshot',
                 '--detectOpenHandles',
                 '--runTestsByPath', testFile
             ]);
 
             server.close();
-            // fs.removeSync(vrtDir);
         });
     });
 });
