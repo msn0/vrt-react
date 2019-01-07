@@ -6,7 +6,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = function ({ entry, outputPath, outputFilename, componentName }) {
     return {
         mode: 'production',
-        stats: 'none',
         entry,
         output: {
             path: path.resolve(__dirname, outputPath),
@@ -35,7 +34,7 @@ module.exports = function ({ entry, outputPath, outputFilename, componentName })
             })
         ],
         devServer: {
-            stats: 'none'
+            stats: 'errors-only'
         }
     };
 };

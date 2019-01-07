@@ -3,7 +3,7 @@ const puppeteer = require('puppeteer');
 
 expect.extend({ toMatchImageSnapshot });
 
-describe('<%= screensDir %>', () => {
+describe('<%= describe %>', () => {
     let browser;
 
     beforeAll(async () => {

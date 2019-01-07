@@ -39,6 +39,7 @@ glob(path.resolve('./**/vrt.json'), { absolute: true }, (error, files) => {
             port,
             file: componentName + '.html',
             screensDir: path.resolve(componentDir, '__screenshots__'),
+            describe: path.parse(path.parse(path.resolve(componentDir, '__screenshots__')).dir).base + '/__screenshots__',
             snapshotName: componentName
         });
         const entryFileContent = entryTemplate({ componentFile });
