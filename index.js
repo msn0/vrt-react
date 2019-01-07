@@ -15,6 +15,7 @@ const testTemplate = ejs.compile(fs.readFileSync(path.resolve(__dirname, './test
 const entryTemplate = ejs.compile(fs.readFileSync(path.resolve(__dirname, './entry-template.js'), 'UTF-8'));
 const vrtDir = path.resolve('.vrt');
 const vrtTestsDir = path.resolve(vrtDir, '__tests__');
+const vrtGlobalConfig = require(path.resolve('./vrt.config'));
 
 if (!fs.existsSync(vrtDir)) {
     fs.mkdirSync(vrtDir);
@@ -51,7 +52,7 @@ glob(path.resolve('./**/.vrt.js'), { absolute: true }, (error, files) => {
             entry: entryFile,
             outputPath: vrtDir,
             outputFilename: componentName + '.bundle.js',
-            loaders: config.webpack && config.webpack.loaders || []
+            loaders: vrtGlobalConfig.webpack && vrtGlobalConfig.webpack.loaders || []
         });
 
         const server = new WebpackDevServer(Webpack(webpackConfig), { stats: 'errors-only' });
