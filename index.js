@@ -9,6 +9,7 @@ const getPort = require('get-port');
 const ejs = require('ejs');
 const fs = require('fs-extra');
 const path = require('path');
+const nanoid = require('nanoid');
 
 const devServerOptions = Object.assign({}, webpackConfig.devServer);
 const testTemplate = ejs.compile(fs.readFileSync(path.resolve(__dirname, './test-template.js'), 'UTF-8'));
@@ -16,22 +17,23 @@ const entryTemplate = ejs.compile(fs.readFileSync(path.resolve(__dirname, './ent
 const vrtDir = path.resolve('.vrt');
 const vrtTestsDir = path.resolve(vrtDir, '__tests__');
 
+if (!fs.existsSync(vrtDir)) {
+    fs.mkdirSync(vrtDir);
+}
+
+if (!fs.existsSync(vrtTestsDir)) {
+    fs.mkdirSync(vrtTestsDir);
+}
+
 glob(path.resolve('./**/vrt.json'), { absolute: true }, (error, files) => {
     files.forEach(async (configFile) => {
         const config = require(configFile);
         const componentDir = path.dirname(configFile);
-
         const componentFile = path.resolve(componentDir, config.main);
         const componentName = path.basename(componentFile, '.js');
-
-        if (!fs.existsSync(vrtDir)) {
-            fs.mkdirSync(vrtDir);
-        }
-
-        if (!fs.existsSync(vrtTestsDir)) {
-            fs.mkdirSync(vrtTestsDir);
-        }
-
+        const id = nanoid(5);
+        const entryFile = path.resolve(vrtDir, `${componentName}_${id}.entry.js`);
+        const testFile = path.resolve(vrtTestsDir, `${componentName}_${id}.test.js`);
         const port = await getPort();
         const testFileContent = testTemplate({
             port,
@@ -41,12 +43,12 @@ glob(path.resolve('./**/vrt.json'), { absolute: true }, (error, files) => {
         });
         const entryFileContent = entryTemplate({ componentFile });
 
-        fs.writeFileSync(path.resolve(vrtTestsDir, componentName + '.test.js'), testFileContent);
-        fs.writeFileSync(path.resolve(vrtDir, componentName + '.entry.js'), entryFileContent);
+        fs.writeFileSync(testFile, testFileContent);
+        fs.writeFileSync(entryFile, entryFileContent);
 
         const compiler = Webpack(webpackConfig({
             componentName,
-            entry: path.resolve(vrtDir, componentName + '.entry.js'),
+            entry: entryFile,
             outputPath: vrtDir,
             outputFilename: componentName + '.bundle.js'
         }));
@@ -57,7 +59,7 @@ glob(path.resolve('./**/vrt.json'), { absolute: true }, (error, files) => {
             await jest.run([
                 '--silent',
                 '--detectOpenHandles',
-                '--runTestsByPath', path.resolve(vrtTestsDir, componentName + '\.test\.js')
+                '--runTestsByPath', testFile
             ]);
 
             server.close();
