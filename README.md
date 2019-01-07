@@ -1,6 +1,6 @@
 # vrt-react
 
-> A tool for easy screenshot testing your react components.
+> A tool for easy screenshot testing your React components.
 
 ## Installation
 
@@ -27,7 +27,7 @@ src/components/badge
 └── .vrt.js
 ```
 
-Then run
+then run
 
 ```sh
 $ npx vrt-react 
