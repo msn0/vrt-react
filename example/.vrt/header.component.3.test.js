@@ -3,24 +3,24 @@ const puppeteer = require('puppeteer');
 
 expect.extend({ toMatchImageSnapshot });
 
-describe('<%= screensDir %>', () => {
+describe('/Users/michal.jezierski/work/vrtc/example/src/components/header.3/__screenshots__', () => {
     let browser;
 
     beforeAll(async () => {
-        jest.setTimeout(90000);
+        jest.setTimeout(180000);
         browser = await puppeteer.launch();
     });
 
-    it('<%= snapshotName %>', async () => {
+    it('header.component.3', async () => {
         const page = await browser.newPage();
 
-        await page.goto('http://localhost:<%= port %>/<%= file %>');
+        await page.goto('http://localhost:60780/header.component.3.html');
         const element = await page.waitForSelector('body > *');
         const image = await element.screenshot();
 
         expect(image).toMatchImageSnapshot({
-            customSnapshotsDir: '<%= screensDir %>',
-            customSnapshotIdentifier: '<%= snapshotName %>'
+            customSnapshotsDir: '/Users/michal.jezierski/work/vrtc/example/src/components/header.3/__screenshots__',
+            customSnapshotIdentifier: 'header.component.3'
         });
     });
 

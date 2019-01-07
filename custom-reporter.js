@@ -8,7 +8,7 @@ class MyCustomReporter {
     }
 
     onRunComplete(contexts, results) {
-        console.log(results.testResults[0].testResults[0]);
+        // console.log(results.testResults[0].testResults[0]);
         const result = results.testResults[0].testResults[0];
         console.log(`${result.status === 'passed' ? chalk.green(' ✔ ') : chalk.red(' ✘ ')}${result.ancestorTitles[0]}`);
     }
