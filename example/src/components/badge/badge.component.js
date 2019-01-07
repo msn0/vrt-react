@@ -1,4 +1,5 @@
 import React from 'react';
+import './badge.css';
 
 export default function Badge() {
     return (

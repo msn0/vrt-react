@@ -10,7 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "chalk": "^2.4.2",
+    "css-loader": "^2.1.0",
     "p-limit": "^2.1.0",
+    "style-loader": "^0.23.1",
     "vrtc": "file:.."
   }
 }

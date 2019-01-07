@@ -24,7 +24,7 @@ if (!fs.existsSync(vrtTestsDir)) {
     fs.mkdirSync(vrtTestsDir);
 }
 
-glob(path.resolve('./**/vrt.json'), { absolute: true }, (error, files) => {
+glob(path.resolve('./**/.vrt.js'), { absolute: true }, (error, files) => {
     files.forEach(async (configFile) => {
         const config = require(configFile);
         const componentDir = path.dirname(configFile);
@@ -50,7 +50,8 @@ glob(path.resolve('./**/vrt.json'), { absolute: true }, (error, files) => {
             componentName,
             entry: entryFile,
             outputPath: vrtDir,
-            outputFilename: componentName + '.bundle.js'
+            outputFilename: componentName + '.bundle.js',
+            loaders: config.webpack && config.webpack.loaders || []
         });
 
         const server = new WebpackDevServer(Webpack(webpackConfig), { stats: 'errors-only' });
