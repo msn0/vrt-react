@@ -14,6 +14,7 @@ describe('<%= describe %>', () => {
     it('<%= snapshotName %>', async () => {
         const page = await browser.newPage();
 
+        await page.setViewport({ width: 360, height: 600, deviceScaleFactor: 2 });
         await page.goto('http://localhost:<%= port %>/<%= file %>', {
             waitUntil: 'networkidle2',
             timeout: 0
