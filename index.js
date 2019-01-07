@@ -72,6 +72,6 @@ glob(path.resolve('./**/.vrt.js'), { absolute: true }, async (error, files) => {
         ].concat(testFiles));
 
         server.close();
-        // fs.removeSync(vrtDir);
+        fs.removeSync(vrtDir);
     });
 });
