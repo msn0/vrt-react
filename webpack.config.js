@@ -3,7 +3,25 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.exports = function ({ entry, outputPath, outputFilename, componentName }) {
+module.exports = function ({ entry, outputPath, outputFilename, componentName, webpack = {} }) {
+    const rules = [
+        {
+            test: /.*\.js$/,
+            exclude: /node_modules/,
+            loader: 'babel-loader',
+            options: {
+                presets: [
+                    '@babel/preset-env',
+                    '@babel/preset-react'
+                ]
+            }
+        }
+    ];
+
+    if (webpack.loaders) {
+        rules.concat(webpack.loaders);
+    }
+
     return {
         mode: 'production',
         entry,
@@ -13,21 +31,7 @@ module.exports = function ({ entry, outputPath, outputFilename, componentName })
             publicPath: '',
             libraryTarget: 'umd'
         },
-        module: {
-            rules: [
-                {
-                    test: /.*\.js$/,
-                    exclude: /node_modules/,
-                    loader: 'babel-loader',
-                    options: {
-                        presets: [
-                            '@babel/preset-env',
-                            '@babel/preset-react'
-                        ]
-                    }
-                }
-            ]
-        },
+        module: { rules },
         plugins: [
             new HtmlWebpackPlugin({
                 filename: path.resolve(__dirname, outputPath, componentName + '.html')
