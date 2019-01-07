@@ -2,7 +2,7 @@
 
 const Webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server/lib/Server');
-const webpackConfig = require('./webpack.config');
+const getWebpackConfig = require('./webpack.config');
 const jest = require('jest');
 const glob = require('glob');
 const getPort = require('get-port');
@@ -11,7 +11,6 @@ const fs = require('fs-extra');
 const path = require('path');
 const nanoid = require('nanoid');
 
-const devServerOptions = Object.assign({}, webpackConfig.devServer);
 const testTemplate = ejs.compile(fs.readFileSync(path.resolve(__dirname, './test-template.js'), 'UTF-8'));
 const entryTemplate = ejs.compile(fs.readFileSync(path.resolve(__dirname, './entry-template.js'), 'UTF-8'));
 const vrtDir = path.resolve('.vrt');
@@ -47,14 +46,14 @@ glob(path.resolve('./**/vrt.json'), { absolute: true }, (error, files) => {
         fs.writeFileSync(testFile, testFileContent);
         fs.writeFileSync(entryFile, entryFileContent);
 
-        const compiler = Webpack(webpackConfig({
+        const webpackConfig = getWebpackConfig({
             componentName,
             entry: entryFile,
             outputPath: vrtDir,
             outputFilename: componentName + '.bundle.js'
-        }));
+        });
 
-        const server = new WebpackDevServer(compiler, devServerOptions);
+        const server = new WebpackDevServer(Webpack(webpackConfig), { stats: 'errors-only' });
 
         server.listen(port, 'localhost', async () => {
             await jest.run([

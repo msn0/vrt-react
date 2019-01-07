@@ -36,9 +36,6 @@ module.exports = function ({ entry, outputPath, outputFilename, componentName, w
             new HtmlWebpackPlugin({
                 filename: path.resolve(__dirname, outputPath, componentName + '.html')
             })
-        ],
-        devServer: {
-            stats: 'errors-only'
-        }
+        ]
     };
 };
