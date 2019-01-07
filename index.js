@@ -16,6 +16,8 @@ const entryTemplate = ejs.compile(fs.readFileSync(path.resolve(__dirname, './ent
 const vrtDir = path.resolve('.vrt');
 const vrtTestsDir = path.resolve(vrtDir, '__tests__');
 const vrtGlobalConfig = require(path.resolve('./vrt.config'));
+const webpackConfig = [];
+const testFiles = [];
 
 if (!fs.existsSync(vrtDir)) {
     fs.mkdirSync(vrtDir);
@@ -25,7 +27,8 @@ if (!fs.existsSync(vrtTestsDir)) {
     fs.mkdirSync(vrtTestsDir);
 }
 
-glob(path.resolve('./**/.vrt.js'), { absolute: true }, (error, files) => {
+glob(path.resolve('./**/.vrt.js'), { absolute: true }, async (error, files) => {
+    const port = await getPort();
     files.forEach(async (configFile) => {
         const config = require(configFile);
         const componentDir = path.dirname(configFile);
@@ -34,7 +37,7 @@ glob(path.resolve('./**/.vrt.js'), { absolute: true }, (error, files) => {
         const id = nanoid(5);
         const entryFile = path.resolve(vrtDir, `${componentName}_${id}.entry.js`);
         const testFile = path.resolve(vrtTestsDir, `${componentName}_${id}.test.js`);
-        const port = await getPort();
+
         const testFileContent = testTemplate({
             port,
             file: componentName + '.html',
@@ -47,26 +50,28 @@ glob(path.resolve('./**/.vrt.js'), { absolute: true }, (error, files) => {
         fs.writeFileSync(testFile, testFileContent);
         fs.writeFileSync(entryFile, entryFileContent);
 
-        const webpackConfig = getWebpackConfig({
+        webpackConfig.push(getWebpackConfig({
             componentName,
             entry: entryFile,
             outputPath: vrtDir,
             outputFilename: componentName + '.bundle.js',
             loaders: vrtGlobalConfig.webpack && vrtGlobalConfig.webpack.loaders || []
-        });
+        }));
+        testFiles.push(testFile);
+    });
 
-        const server = new WebpackDevServer(Webpack(webpackConfig), { stats: 'errors-only' });
+    const server = new WebpackDevServer(Webpack(webpackConfig), { stats: 'errors-only' });
 
-        server.listen(port, 'localhost', async () => {
-            await jest.run([
-                '--silent',
-                '--verbose',
-                '--updateSnapshot',
-                '--detectOpenHandles',
-                '--runTestsByPath', testFile
-            ]);
+    server.listen(port, 'localhost', async () => {
+        await jest.run([
+            '--silent',
+            '--verbose',
+            '--updateSnapshot',
+            '--detectOpenHandles',
+            '--runTestsByPath'
+        ].concat(testFiles));
 
-            server.close();
-        });
+        server.close();
+        // fs.removeSync(vrtDir);
     });
 });
