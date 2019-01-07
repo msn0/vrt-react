@@ -3,14 +3,15 @@ const puppeteer = require('puppeteer');
 
 expect.extend({ toMatchImageSnapshot });
 
-describe('<%= snapshotName %>', () => {
+describe('<%= screensDir %>', () => {
     let browser;
 
     beforeAll(async () => {
+        jest.setTimeout(60000);
         browser = await puppeteer.launch();
     });
 
-    it('600', async () => {
+    it('<%= snapshotName %>', async () => {
         const page = await browser.newPage();
         // await page.setViewport({ width: 600, height: 400 });
 

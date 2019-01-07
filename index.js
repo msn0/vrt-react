@@ -48,8 +48,10 @@ glob('./**/vrt.json', { absolute: true }, (error, files) => {
         const server = new WebpackDevServer(compiler, devServerOptions);
 
         server.listen(port, 'localhost', () => {
+            console.log('RUNNING', componentName);
             jest
                 .run([
+                    '-i',
                     '--detectOpenHandles',
                     '--config', path.resolve(__dirname, 'jest.config.js'),
                     componentName + '\.test\.js'
