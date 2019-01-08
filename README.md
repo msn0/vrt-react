@@ -10,6 +10,8 @@ npm i vrt-react
 
 ## Usage
 
+### Basic example
+
 Create `.vrt.js` with the content:
 
 ```js
@@ -18,7 +20,7 @@ module.exports = {
 }
 ```
 
-Save it next to your component, for example:
+This `.vrt.js` file informs `vrt-react` that it should generate screenshots for `badge.js` file. Save `.vrt.js` next to your component, for example:
 
 ```
 src/components/badge
@@ -27,7 +29,7 @@ src/components/badge
 └── .vrt.js
 ```
 
-then run
+Once you did it it's time to generate your first screenshots. Just run `vrt-react`, e.g.
 
 ```sh
 $ npx vrt-react 
