@@ -3,7 +3,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.exports = function ({ entry, outputPath, outputFilename, componentName, loaders = [] }) {
+module.exports = function ({ entry, outputPath, outputFilename, componentNameWithId, loaders = [] }) {
     const rules = [
         {
             test: /.*\.js$/,
@@ -30,7 +30,7 @@ module.exports = function ({ entry, outputPath, outputFilename, componentName, l
         module: { rules },
         plugins: [
             new HtmlWebpackPlugin({
-                filename: path.resolve(__dirname, outputPath, componentName + '.html')
+                filename: path.resolve(__dirname, outputPath, `${componentNameWithId}.html`)
             })
         ]
     };

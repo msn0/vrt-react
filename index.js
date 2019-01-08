@@ -10,6 +10,7 @@ const ejs = require('ejs');
 const fs = require('fs-extra');
 const path = require('path');
 const nanoid = require('nanoid');
+const slugify = require('slugify');
 
 const testTemplate = ejs.compile(fs.readFileSync(path.resolve(__dirname, './test-template.js'), 'UTF-8'));
 const entryTemplate = ejs.compile(fs.readFileSync(path.resolve(__dirname, './entry-template.js'), 'UTF-8'));
@@ -34,30 +35,42 @@ glob(path.resolve('./**/.vrt.js'), { absolute: true }, async (error, files) => {
         const componentDir = path.dirname(configFile);
         const componentFile = path.resolve(componentDir, config.main);
         const componentName = path.basename(componentFile, '.js');
-        const id = nanoid(5);
-        const entryFile = path.resolve(vrtDir, `${componentName}_${id}.entry.js`);
-        const testFile = path.resolve(vrtTestsDir, `${componentName}_${id}.test.js`);
+        const presets = config.presets
+            && config.presets.length > 0
+            && config.presets
+            || [{ name: componentName }];
 
-        const testFileContent = testTemplate({
-            port,
-            file: componentName + '.html',
-            screensDir: path.resolve(componentDir, '__screenshots__'),
-            describe: path.parse(path.parse(path.resolve(componentDir, '__screenshots__')).dir).base + '/__screenshots__',
-            snapshotName: componentName
+        presets.map(({ name }, presetIndex) => {
+            const id = nanoid(5);
+            const componentNameWithId = `${componentName}_${id}`;
+            const entryFile = path.resolve(vrtDir, `${componentNameWithId}.entry.js`);
+            const testFile = path.resolve(vrtTestsDir, `${componentNameWithId}.test.js`);
+
+            const testFileContent = testTemplate({
+                port,
+                file: `${componentNameWithId}.html`,
+                screensDir: path.resolve(componentDir, '__screenshots__'),
+                describe: path.parse(path.parse(path.resolve(componentDir, '__screenshots__')).dir).base + '/__screenshots__',
+                snapshotName: slugify(name)
+            });
+            const entryFileContent = entryTemplate({
+                configFile,
+                componentFile,
+                presetIndex
+            });
+
+            fs.writeFileSync(testFile, testFileContent);
+            fs.writeFileSync(entryFile, entryFileContent);
+
+            webpackConfig.push(getWebpackConfig({
+                componentNameWithId,
+                entry: entryFile,
+                outputPath: vrtDir,
+                outputFilename: `${componentNameWithId}.bundle.js`,
+                loaders: vrtGlobalConfig.webpack && vrtGlobalConfig.webpack.loaders || []
+            }));
+            testFiles.push(testFile);
         });
-        const entryFileContent = entryTemplate({ componentFile });
-
-        fs.writeFileSync(testFile, testFileContent);
-        fs.writeFileSync(entryFile, entryFileContent);
-
-        webpackConfig.push(getWebpackConfig({
-            componentName,
-            entry: entryFile,
-            outputPath: vrtDir,
-            outputFilename: componentName + '.bundle.js',
-            loaders: vrtGlobalConfig.webpack && vrtGlobalConfig.webpack.loaders || []
-        }));
-        testFiles.push(testFile);
     });
 
     const server = new WebpackDevServer(Webpack(webpackConfig), { stats: 'errors-only' });

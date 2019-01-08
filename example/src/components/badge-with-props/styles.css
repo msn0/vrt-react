@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+.wrapper {
+    display: inline-block;
+    font-family: 'Roboto';
+    font-size: 11px;
+    color: white;
+    background-color: #00aab1;
+    padding: 1px 6px;
+    border-radius: 3px;
+}
