@@ -1,3 +1,3 @@
 module.exports = {
-    main: 'badge.component.js'
+    main: 'badge.component.1.js'
 };
