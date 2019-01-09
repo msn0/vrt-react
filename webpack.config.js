@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = function ({ entry, outputPath, outputFilename, componentNameWithId, loaders = [] }) {
     const rules = [
         {
-            test: /.*\.js$/,
+            test: /.*\.jsx?$/,
             exclude: /node_modules/,
             loader: 'babel-loader',
             options: {
