@@ -54,9 +54,51 @@ Once we have it it's time to generate our first screenshot. Just run `vrt`, e.g.
 $ npx vrt 
 ```
 
-That's all! The screenshot has been saved under `src/component/badge/__screenshots__/badge-snap.png`.
+### Component with props
 
-### 
+Component's without props might be a rare case. Most of the time components do receive props, e.g.
+
+```jsx
+import React from 'react;
+
+export default function Badge ({ num = 0 }) {
+    return (
+        <div>
+            { num > 0 ? num : 'no' } new messages
+        </div>
+    );
+}
+```
+
+There are two possible cases in here - the one with `num` greater then zero (e.g. „7 new messages”) and the other one with `num` not being greater than zero („no new messages”). To take a screenshots of these two cases we need to extend `.vrt.js` configuration and add possible `props` in the following way:
+
+```js
+module.exports = {
+    main: 'badge.js',
+    presets: [
+        {
+            name: 'some messages',
+            props: {
+                messages: 7
+            }
+        },
+        {
+            name: 'no messages',
+            props: {
+                messages: 0
+            }
+        }
+    ]
+}
+```
+
+Run `npx vrt`. Two screenshots of our `Badge` component has been saved under `badge/__screenshots__` directory:
+
+```
+src/components/badge/__screenshots__
+├── no-messages-snap.png
+└── some-messages-snap.png
+```
 
 ## License
 
