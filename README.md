@@ -100,6 +100,47 @@ src/components/badge/__screenshots__
 └── some-messages-snap.png
 ```
 
+### Component with CSS
+
+Let's say we have `badge.css` stylesheet and we import it inside our component, e.g.
+
+```jsx
+import React from 'react;
+import styles from './badge.css';
+
+export default function Badge ({ num = 0 }) {
+    return (
+        <div className={ styles.badge }>
+            { num > 0 ? num : 'no' } new messages
+        </div>
+    );
+}
+```
+
+When `@vrt/react` takes a screenshot of your component it bundles it with webpack under the hood. To make it „understand” what `import styles from './badge.css` means we need to provide an appropriate loader, in this case it's possibly `css-loader` and `styles-loader`. We need to create a separate, global config for `@vrt/react` and feed it with loaders
+
+```js
+// vrt.config.js
+module.exports = {
+    webpack: {
+        loaders: [
+            {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: { modules: true }
+                    }
+                ]
+            }
+        ]
+    }
+}
+```
+
+We save this file under our project's root directory and give it the name `vrt.config.js`.
+
 ## License
 
 MIT
