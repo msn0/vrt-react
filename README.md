@@ -1,6 +1,6 @@
-# 📸 vrt-react
+# 📸 @vrt/react
 
-> Use `vrt-react` to take screenshots of your React components
+> Use `@vrt/react` to take screenshots of your React components
 
 ## Installation
 
@@ -34,7 +34,7 @@ module.exports = {
 }
 ```
 
-This `.vrt.js` file informs `vrt-react` that it should generate one screenshot for `badge.js` file. We save `.vrt.js` next to our component, e.g.
+This `.vrt.js` file informs `@vrt/react` that it should generate one screenshot for `badge.js` file. We save `.vrt.js` next to our component, e.g.
 
 ```
 src/components/badge
@@ -42,10 +42,10 @@ src/components/badge
 └── .vrt.js
 ```
 
-Once we have it it's time to generate our first screenshot. Just run `vrt-react`, e.g.
+Once we have it it's time to generate our first screenshot. Just run `vrt`, e.g.
 
 ```sh
-$ npx vrt-react 
+$ npx vrt 
 ```
 
 That's all! The screenshot has been saved under `src/component/badge/__screenshots__/badge-snap.png`.
