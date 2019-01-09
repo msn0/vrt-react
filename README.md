@@ -1,18 +1,32 @@
-# vrt-react
+# 📸 vrt-react
 
-> A tool for easy screenshot testing your React components.
+> Use `vrt-react` to take screenshots of your React components
 
 ## Installation
 
 ```sh
-npm i vrt-react
+npm i vrt-react -D
 ```
 
 ## Usage
 
 ### Basic example
 
-Create `.vrt.js` with the content:
+Let's assume we have a very simple `badge.js` component which doesn't take any props and doesn't have dependencies (except React), e.g.
+
+```jsx
+import React from 'react;
+
+export default function Badge () {
+    return (
+        <div>
+            Lorem ipsum dolor sit amet
+        </div>
+    );
+}
+```
+
+To capture a screenshot of it we need to create `.vrt.js` with a content:
 
 ```js
 module.exports = {
@@ -29,13 +43,15 @@ src/components/badge
 └── .vrt.js
 ```
 
-Once you did it it's time to generate your first screenshots. Just run `vrt-react`, e.g.
+Once we have it it's time to generate our first screenshots. Just run `vrt-react`, e.g.
 
 ```sh
 $ npx vrt-react 
 ```
 
-That's all! `vrt-react` built your component for you, run in a sandboxed environment, took a screenshot and saved it as ` __screenshots__/badge-snap.png`.
+That's all! The screenshot has been saved under `src/component/badge/__screenshots__/badge-snap.png`.
+
+### 
 
 ## License
 
