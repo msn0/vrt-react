@@ -28,7 +28,7 @@ if (!fs.existsSync(vrtTestsDir)) {
     fs.mkdirSync(vrtTestsDir);
 }
 
-glob(path.resolve('./**/.vrt.js'), { absolute: true }, async (error, files) => {
+glob(path.resolve('./!(node_modules)/**/.vrt.js'), { absolute: true }, async (error, files) => {
     const port = await getPort();
     files.forEach(async (configFile) => {
         const config = require(configFile);
