@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/msn0/vrtc.git"
+    "url": "git+https://github.com/msn0/vrt-react.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/msn0/vrtc/issues"
+    "url": "https://github.com/msn0/vrt-react/issues"
   },
-  "homepage": "https://github.com/msn0/vrtc#readme",
+  "homepage": "https://github.com/msn0/vrt-react#readme",
   "devDependencies": {
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.2.3",
