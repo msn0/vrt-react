@@ -2,6 +2,10 @@
 
 > Use `@vrt/react` to take screenshots of your React components
 
+<h1 align="center">
+   <img width=600 src="https://pli.io/264TdW.gif" alt="compare screenshots" /> 
+</h1>
+
 ## Motivation
 
 Once we have unit tests of React components or any other type of tests it's also good to have screenshots of presentational components. Unit tests describe the logic of our component but they don't say anything about how it should look like. It's an anti-pattern to unit-test whether the component has received a proper className - the className can be valid but the color, font-size, margin or any other css property might be wrong causing our component to be badly coloured, displaced or just to look bad. 
