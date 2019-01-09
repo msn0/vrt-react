@@ -5,7 +5,7 @@
 ## Installation
 
 ```sh
-npm i vrt-react -D
+$ npm i vrt-react -D
 ```
 
 ## Usage
@@ -34,7 +34,7 @@ module.exports = {
 }
 ```
 
-This `.vrt.js` file informs `vrt-react` that it should generate screenshots for `badge.js` file. We save `.vrt.js` next to our component, e.g.
+This `.vrt.js` file informs `vrt-react` that it should generate one screenshot for `badge.js` file. We save `.vrt.js` next to our component, e.g.
 
 ```
 src/components/badge
@@ -42,7 +42,7 @@ src/components/badge
 └── .vrt.js
 ```
 
-Once we have it it's time to generate our first screenshots. Just run `vrt-react`, e.g.
+Once we have it it's time to generate our first screenshot. Just run `vrt-react`, e.g.
 
 ```sh
 $ npx vrt-react 
