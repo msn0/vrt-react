@@ -12,7 +12,7 @@ npm i vrt-react -D
 
 ### Basic example
 
-Let's assume we have a very simple `badge.js` component which doesn't take any props and doesn't have dependencies (except React), e.g.
+Let's assume most simple case - we have a very simple `badge.js` component which doesn't take any props and doesn't have dependencies (except React), e.g.
 
 ```jsx
 import React from 'react;
