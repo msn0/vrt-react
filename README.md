@@ -1,10 +1,10 @@
 # 📸 @vrt/react
 
-> Use `@vrt/react` to take screenshots of your React components
-
 <h1 align="center">
    <img width=600 src="https://pli.io/264TdW.gif" alt="compare screenshots" /> 
 </h1>
+
+> Use `@vrt/react` to take screenshots of your React components and comapre them within a pull request like a boss! 
 
 ## Motivation
 
