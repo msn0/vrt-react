@@ -2,15 +2,21 @@ module.exports = {
     main: './',
     presets: [
         {
-            name: 'simple message',
+            name: 'no message',
             props: {
-                message: 1
+                num: 0
             }
         },
         {
-            name: 'long message',
+            name: 'one message',
             props: {
-                message: 'I want 🍕'
+                num: 1
+            }
+        },
+        {
+            name: 'some messages',
+            props: {
+                num: 2
             }
         }
     ]
