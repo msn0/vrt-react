@@ -1,10 +1,14 @@
-# 📸 @vrt/react
+<h2 align="center">
+    📸 @vrt/react
+</h2>
 
-<h1 align="center">
-   <img width=600 src="https://pli.io/264TdW.gif" alt="compare screenshots" /> 
-</h1>
+<p align="center">
+    Use `@vrt/react` to take screenshots of your React components and compare them within a pull request like a boss! 
+</p>
 
-> Use `@vrt/react` to take screenshots of your React components and comapre them within a pull request like a boss! 
+<p align="center">
+    <img align=center width=600 src="https://pli.io/264TdW.gif" alt="compare screenshots" /> 
+</p>
 
 ## Motivation
 
