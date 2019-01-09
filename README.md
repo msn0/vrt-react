@@ -1,9 +1,7 @@
-<h2 align="center">
-    📸 @vrt/react
-</h2>
+<h1 align="center">📸 @vrt/react</h1>
 
 <p align="center">
-    Use `@vrt/react` to take screenshots of your React components and compare them within a pull request like a boss! 
+    Use @vrt/react to take screenshots of your React components <br>and compare them within a pull request like a boss! 
 </p>
 
 <p align="center">
