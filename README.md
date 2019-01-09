@@ -139,7 +139,11 @@ module.exports = {
 }
 ```
 
-We save this file under our project's root directory and give it the name `vrt.config.js`.
+We save this file under our project's root directory and give it the name `vrt.config.js`. If you don't use webpack and don't have these loaders as dependencies you need to install them.
+
+Next we are ready to run `npx vrt`.
+
+If your component requires any other loaders to make it working - just add them to `vrt.config.js`. Please note that you don't need to add `babel-loader` - it's already added to make `@vrt/react` understand ES6 syntax.
 
 ## License
 
