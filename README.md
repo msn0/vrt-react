@@ -5,7 +5,7 @@
 ## Installation
 
 ```sh
-$ npm i vrt-react -D
+$ npm i @vrt/react -D
 ```
 
 ## Usage
