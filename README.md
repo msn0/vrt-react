@@ -28,7 +28,7 @@ $ npm i @vrt/react -D
 Let's assume most simple case - we have a very simple `badge.js` component which doesn't take any props and doesn't have dependencies (except React), e.g.
 
 ```jsx
-import React from 'react;
+import React from 'react';
 
 export default function Badge () {
     return (
@@ -66,7 +66,7 @@ $ npx vrt
 Component's without props might be a rare case. Most of the time components do receive props, e.g.
 
 ```jsx
-import React from 'react;
+import React from 'react';
 
 export default function Badge ({ num = 0 }) {
     return (
@@ -112,7 +112,7 @@ src/components/badge/__screenshots__
 Let's say we have `badge.css` stylesheet and we import it inside our component, e.g.
 
 ```jsx
-import React from 'react;
+import React from 'react';
 import styles from './badge.css';
 
 export default function Badge ({ num = 0 }) {
