@@ -34,7 +34,7 @@ module.exports = {
 }
 ```
 
-This `.vrt.js` file informs `vrt-react` that it should generate screenshots for `badge.js` file. Save `.vrt.js` next to your component, for example:
+This `.vrt.js` file informs `vrt-react` that it should generate screenshots for `badge.js` file. We save `.vrt.js` next to our component, e.g.
 
 ```
 src/components/badge
