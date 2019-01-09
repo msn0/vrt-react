@@ -39,7 +39,6 @@ This `.vrt.js` file informs `vrt-react` that it should generate screenshots for 
 ```
 src/components/badge
 ├── badge.js
-├── badge.css
 └── .vrt.js
 ```
 
