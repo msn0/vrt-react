@@ -4,7 +4,7 @@
 
 ## Motivation
 
-Once we have unit tests of React components or any other type of tests it's also good to have screenshots of presentational components. Unit tests describes the logic of our component but they don't say anything about how it should look like. It's an anti-pattern to unit-test whether the component has received a proper className - the className can be valid but the color, font-size, margin or any other css property might be wrong causing our component to be badly coloured, displaced or just to look bad. 
+Once we have unit tests of React components or any other type of tests it's also good to have screenshots of presentational components. Unit tests describe the logic of our component but they don't say anything about how it should look like. It's an anti-pattern to unit-test whether the component has received a proper className - the className can be valid but the color, font-size, margin or any other css property might be wrong causing our component to be badly coloured, displaced or just to look bad. 
 
 GitHub, GitLab and BitBucket do have image diff tools. Once someone created a pull request with code changes it's very helpful to see how the code changes affect the look of the component. Having component's screenshot included in the pull request gives the reviewer a chance to see what's really going on with the component's look.  
 
