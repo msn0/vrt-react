@@ -8,7 +8,7 @@ export default function Badge ({ num = 0 }) {
                 { num > 0 ? num : 'no' }
             </span>
             <span className={ styles.text }>
-                new message{ num !== 1 ? 's' : ''}
+                { 'new message' }{ num !== 1 ? 's' : ''}
             </span>
         </div>
     );
