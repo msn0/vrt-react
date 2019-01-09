@@ -100,7 +100,7 @@ src/components/badge/__screenshots__
 └── some-messages-snap.png
 ```
 
-### Component with CSS
+### Component with CSS modules
 
 Let's say we have `badge.css` stylesheet and we import it inside our component, e.g.
 
