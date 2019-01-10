@@ -2,8 +2,11 @@
 
 <p align="center">
     Use @vrt/react to take screenshots of your React components <br>
-    and <a href="https://github.com/msn0/vrt-react/pull/1/files?short_path=489ed59#diff-489ed59d18f1b0d9e42b39101ae65623">compare them within a pull request</a> like a boss!<br>
-    [![Build Status](https://travis-ci.org/msn0/vrt-react.svg?branch=master)](http://travis-ci.org/msn0/vrt-react)
+    and <a href="https://github.com/msn0/vrt-react/pull/1/files?short_path=489ed59#diff-489ed59d18f1b0d9e42b39101ae65623">compare them within a pull request</a> like a boss!
+</p>
+
+<p align="center">
+    <a href="https://travis-ci.org/msn0/vrt-react"><img alt="Travis Status" src="https://travis-ci.org/msn0/vrt-react.svg?branch=master"></a>
 </p>
 
 <p align="center">
