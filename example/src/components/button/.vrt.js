@@ -4,31 +4,37 @@ module.exports = {
         {
             name: 'primary',
             props: {
-                type: 'primary'
+                type: 'primary',
+                text: 'click me'
             }
         },
         {
             name: 'secondary',
             props: {
-                type: 'secondary'
+                type: 'secondary',
+                text: 'click me'
             }
         },
         {
             name: 'success',
             props: {
-                type: 'success'
+                type: 'success',
+                text: 'click me'
             }
         },
         {
             name: 'danger',
             props: {
-                type: 'danger'
+                type: 'danger',
+                text: 'click me'
             }
         },
         ,
         {
             name: 'no type',
-            props: {}
+            props: {
+                text: 'click me'
+            }
         }
     ]
 };
