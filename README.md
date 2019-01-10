@@ -2,18 +2,19 @@
 
 <p align="center">
     Use @vrt/react to take screenshots of your React components <br>
-    and <a href="https://github.com/msn0/vrt-react/pull/1/files?short_path=489ed59#diff-489ed59d18f1b0d9e42b39101ae65623">compare them within a pull request</a> like a boss! 
+    and <a href="https://github.com/msn0/vrt-react/pull/1/files?short_path=489ed59#diff-489ed59d18f1b0d9e42b39101ae65623">compare them within a pull request</a> like a boss!<br>
+    [![Build Status](https://travis-ci.org/msn0/vrt-react.svg?branch=master)](http://travis-ci.org/msn0/vrt-react)
 </p>
 
 <p align="center">
-    <img align=center width=600 src="https://pli.io/264TdW.gif" alt="compare screenshots" /> 
+    <img align=center width=600 src="https://pli.io/264TdW.gif" alt="compare screenshots" />
 </p>
 
 ## Motivation
 
-Once we have unit tests of React components or any other type of tests it's also good to have screenshots of presentational components. Unit tests describe the logic of our component but they don't say anything about how it should look like. It's an anti-pattern to unit-test whether the component has received a proper className - the className can be valid but the color, font-size, margin or any other css property might be wrong causing our component to be badly coloured, displaced or just to look bad. 
+Once we have unit tests of React components or any other type of tests it's also good to have screenshots of presentational components. Unit tests describe the logic of our component but they don't say anything about how it should look like. It's an anti-pattern to unit-test whether the component has received a proper className - the className can be valid but the color, font-size, margin or any other css property might be wrong causing our component to be badly coloured, displaced or just to look bad.
 
-GitHub, GitLab and BitBucket do have image diff tools. Once someone created a pull request with code changes it's very helpful to see how the code changes affect the look of the component. Having component's screenshot included in the pull request gives the reviewer a chance to see what's really going on with the component's look.  
+GitHub, GitLab and BitBucket do have image diff tools. Once someone created a pull request with code changes it's very helpful to see how the code changes affect the look of the component. Having component's screenshot included in the pull request gives the reviewer a chance to see what's really going on with the component's look.
 
 ## Installation
 
@@ -58,7 +59,7 @@ src/components/badge
 Once we have it it's time to generate our first screenshot. Just run `vrt`, e.g.
 
 ```sh
-$ npx vrt 
+$ npx vrt
 ```
 
 ### Component with props
