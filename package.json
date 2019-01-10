@@ -7,7 +7,7 @@
     "vrt": "./index.js"
   },
   "scripts": {
-    "test": "cd example; node .. --fail"
+    "test": "cd example; node .."
   },
   "repository": {
     "type": "git",
