@@ -1,4 +1,5 @@
 example/.vrt
+__diff_output__
 node_modules
 .idea
 *.log

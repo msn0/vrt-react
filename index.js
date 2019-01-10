@@ -11,6 +11,21 @@ const fs = require('fs-extra');
 const path = require('path');
 const nanoid = require('nanoid');
 const slugify = require('slugify');
+const meow = require('meow');
+
+const cli = meow(`
+	Usage
+	  $ npx vrt
+
+	Options
+      --fail  don't update snapshots, fail if they don't match
+`, {
+    flags: {
+        fail: {
+            type: 'boolean'
+        }
+    }
+});
 
 const testTemplate = ejs.compile(fs.readFileSync(path.resolve(__dirname, './test-template.js'), 'UTF-8'));
 const entryTemplate = ejs.compile(fs.readFileSync(path.resolve(__dirname, './entry-template.js'), 'UTF-8'));
@@ -79,10 +94,10 @@ glob(path.resolve('./!(node_modules)/**/.vrt.js'), { absolute: true }, async (er
         await jest.run([
             '--silent',
             '--verbose',
-            '--updateSnapshot',
+            cli.flags.fail ? '' : '--updateSnapshot',
             '--detectOpenHandles',
             '--runTestsByPath'
-        ].concat(testFiles));
+        ].filter(Boolean).concat(testFiles));
 
         server.close();
         fs.removeSync(vrtDir);
