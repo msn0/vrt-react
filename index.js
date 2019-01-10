@@ -18,11 +18,15 @@ const cli = meow(`
 	  $ npx vrt
 
 	Options
-      --fail  don't update snapshots, fail if they don't match
+      --fail    don't update snapshots, fail if they don't match
+      --config  path to config file
 `, {
     flags: {
         fail: {
             type: 'boolean'
+        },
+        config: {
+            type: 'string'
         }
     }
 });
@@ -31,7 +35,10 @@ const testTemplate = ejs.compile(fs.readFileSync(path.resolve(__dirname, './test
 const entryTemplate = ejs.compile(fs.readFileSync(path.resolve(__dirname, './entry-template.js'), 'UTF-8'));
 const vrtDir = path.resolve('.vrt');
 const vrtTestsDir = path.resolve(vrtDir, '__tests__');
-const vrtGlobalConfig = require(path.resolve('./vrt.config'));
+const vrtGlobalConfig = cli.flags.config
+    ? require(path.resolve(cli.flags.config))
+    : require(path.resolve('./vrt.config'));
+
 const webpackConfig = [];
 const testFiles = [];
 
