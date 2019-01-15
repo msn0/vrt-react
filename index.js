@@ -30,8 +30,8 @@ const cli = meow(`
     }
 });
 
-const testTemplate = ejs.compile(fs.readFileSync(path.resolve(__dirname, './test-template.js'), 'UTF-8'));
-const entryTemplate = ejs.compile(fs.readFileSync(path.resolve(__dirname, './entry-template.js'), 'UTF-8'));
+const testTemplate = ejs.compile(fs.readFileSync(path.resolve(__dirname, './test-template.ejs'), 'UTF-8'));
+const entryTemplate = ejs.compile(fs.readFileSync(path.resolve(__dirname, './entry-template.ejs'), 'UTF-8'));
 const vrtDir = path.resolve('.vrt');
 const vrtTestsDir = path.resolve(vrtDir, '__tests__');
 const vrtGlobalConfig = cli.flags.config

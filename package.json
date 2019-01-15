@@ -7,7 +7,7 @@
     "vrt": "./index.js"
   },
   "scripts": {
-    "test": "./examples/test.sh"
+    "test": "eslint --fix . && ./examples/test.sh"
   },
   "repository": {
     "type": "git",
@@ -20,7 +20,8 @@
   },
   "homepage": "https://github.com/msn0/vrt-react#readme",
   "devDependencies": {
-    "eslint-config-helmut": "^3.0.0"
+    "eslint-config-helmut": "^3.0.0",
+    "eslint-plugin-react": "^7.12.3"
   },
   "dependencies": {
     "@babel/core": "^7.2.2",
