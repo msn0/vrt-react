@@ -19,7 +19,3 @@ before_install:
   # Launch XVFB
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
-install:
-  - cd example
-  - npm i
-  - cd ..
