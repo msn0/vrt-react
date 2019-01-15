@@ -10,7 +10,7 @@ describe('<%= describe %>', () => {
 
     beforeAll(async () => {
         jest.setTimeout(60000);
-        browser = await puppeteer.launch(<% if (ci) { %> { headless: false } <% } %>);
+        browser = await puppeteer.launch();
     });
 
     it('<%= snapshotName %>', async () => {
@@ -24,10 +24,6 @@ describe('<%= describe %>', () => {
         const image = await element.screenshot();
 
         expect(image).toMatchImageSnapshot({
-            <% if (ci) { %>
-                failureThreshold: '0.5',
-                failureThresholdType: 'percent',
-            <% } %>
             customSnapshotsDir: '<%= screensDir %>',
             customSnapshotIdentifier: '<%= snapshotName %>'
         });

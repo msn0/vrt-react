@@ -9,7 +9,6 @@ const getPort = require('get-port');
 const ejs = require('ejs');
 const fs = require('fs-extra');
 const path = require('path');
-const nanoid = require('nanoid');
 const slugify = require('slugify');
 const meow = require('meow');
 
@@ -20,7 +19,6 @@ const cli = meow(`
 	Options
       --fail    don't update snapshots, fail if they don't match
       --config  path to config file
-      --ci      lower the pixel threshold settings so that CI can pass
 `, {
     flags: {
         fail: {
@@ -28,9 +26,6 @@ const cli = meow(`
         },
         config: {
             type: 'string'
-        },
-        ci: {
-            type: 'boolean'
         }
     }
 });
@@ -41,7 +36,11 @@ const vrtDir = path.resolve('.vrt');
 const vrtTestsDir = path.resolve(vrtDir, '__tests__');
 const vrtGlobalConfig = cli.flags.config
     ? require(path.resolve(cli.flags.config))
-    : require(path.resolve('./vrt.config'));
+    : (
+        fs.existsSync(path.resolve('./vrt.config.js'))
+            ? require(path.resolve('./vrt.config'))
+            : {}
+    );
 
 const webpackConfig = [];
 const testFiles = [];
@@ -54,6 +53,7 @@ if (!fs.existsSync(vrtTestsDir)) {
     fs.mkdirSync(vrtTestsDir);
 }
 
+console.log();
 glob(path.resolve('./!(node_modules)/**/.vrt.js'), { absolute: true }, async (error, files) => {
     const port = await getPort();
     files.forEach(async (configFile) => {
@@ -67,8 +67,7 @@ glob(path.resolve('./!(node_modules)/**/.vrt.js'), { absolute: true }, async (er
             || [{ name: componentName }];
 
         presets.map(({ name }, presetIndex) => {
-            const id = nanoid(5);
-            const componentNameWithId = `${componentName}_${id}`;
+            const componentNameWithId = `${componentName}_${slugify(name)}`;
             const entryFile = path.resolve(vrtDir, `${componentNameWithId}.entry.js`);
             const testFile = path.resolve(vrtTestsDir, `${componentNameWithId}.test.js`);
 

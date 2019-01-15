@@ -30,7 +30,7 @@ module.exports = {
             }
         },
         {
-            name: 'button with badge',
+            name: 'badge',
             props: {
                 type: 'badge',
                 text: 'click me'
