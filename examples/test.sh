@@ -1,5 +1,11 @@
 #!/bin/sh
 
-STATUS=0
-
-find './examples' -depth 1 -type d -exec sh -c 'cd -- "{}" && npm i && npm t && STATUS=$(($STATUS+$?))' \;
+for dir in `ls -d $PWD/examples/*/`;
+do
+    cd $dir
+    npm i && npm t
+    STATUS=$?
+    if [ $STATUS -ne 0 ]; then
+        exit $STATUS
+    fi
+done
