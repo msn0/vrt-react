@@ -20,6 +20,7 @@ const cli = meow(`
 	Options
       --fail    don't update snapshots, fail if they don't match
       --config  path to config file
+      --ci      lower the pixel threshold settings so that CI can pass
 `, {
     flags: {
         fail: {
@@ -27,6 +28,9 @@ const cli = meow(`
         },
         config: {
             type: 'string'
+        },
+        ci: {
+            type: 'boolean'
         }
     }
 });
@@ -73,7 +77,8 @@ glob(path.resolve('./!(node_modules)/**/.vrt.js'), { absolute: true }, async (er
                 file: `${componentNameWithId}.html`,
                 screensDir: path.resolve(componentDir, '__screenshots__'),
                 describe: path.parse(path.parse(path.resolve(componentDir, '__screenshots__')).dir).base + '/__screenshots__',
-                snapshotName: slugify(name)
+                snapshotName: slugify(name),
+                ci: cli.flags.ci
             });
             const entryFileContent = entryTemplate({
                 configFile,

@@ -23,6 +23,9 @@ describe('<%= describe %>', () => {
         const image = await element.screenshot();
 
         expect(image).toMatchImageSnapshot({
+            <% if (ci) { %>
+                customDiffConfig: { threshold: 0.5 },
+            <% } %>
             customSnapshotsDir: '<%= screensDir %>',
             customSnapshotIdentifier: '<%= snapshotName %>'
         });
