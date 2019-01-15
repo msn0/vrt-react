@@ -10,7 +10,7 @@ describe('<%= describe %>', () => {
 
     beforeAll(async () => {
         jest.setTimeout(60000);
-        browser = await puppeteer.launch();
+        browser = await puppeteer.launch(<% if (ci) { %> { headless: false } <% } %>);
     });
 
     it('<%= snapshotName %>', async () => {
