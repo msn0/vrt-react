@@ -1,5 +1,3 @@
-<h1 align="center">📸 @vrt/react</h1>
-
 <p align="center">
     Use @vrt/react to take screenshots of your React components <br>
     and <a href="https://github.com/msn0/vrt-react/pull/1/files?short_path=489ed59#diff-489ed59d18f1b0d9e42b39101ae65623">compare them within a pull request</a> like a boss!
@@ -13,7 +11,7 @@
     <img align=center width=600 src="https://pli.io/264TdW.gif" alt="compare screenshots" />
 </p>
 
-# @vrt/react 
+# 📸 @vrt/react 
 
 ## Motivation
 
