@@ -1,5 +1,7 @@
 const { toMatchImageSnapshot } = require('jest-image-snapshot');
 const puppeteer = require('puppeteer');
+const devices = require('puppeteer/DeviceDescriptors');
+const iPhone = devices['iPhone 8'];
 
 expect.extend({ toMatchImageSnapshot });
 
@@ -13,8 +15,7 @@ describe('<%= describe %>', () => {
 
     it('<%= snapshotName %>', async () => {
         const page = await browser.newPage();
-
-        await page.setViewport({ width: 360, height: 600, deviceScaleFactor: 2 });
+        await page.emulate(iPhone);
         await page.goto('http://localhost:<%= port %>/<%= file %>', {
             waitUntil: 'networkidle2',
             timeout: 0

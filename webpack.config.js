@@ -30,7 +30,8 @@ module.exports = function ({ entry, outputPath, outputFilename, componentNameWit
         module: { rules },
         plugins: [
             new HtmlWebpackPlugin({
-                filename: path.resolve(__dirname, outputPath, `${componentNameWithId}.html`)
+                filename: path.resolve(__dirname, outputPath, `${componentNameWithId}.html`),
+                meta: { viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no' }
             })
         ]
     };

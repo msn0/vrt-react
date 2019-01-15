@@ -9,7 +9,6 @@ const getPort = require('get-port');
 const ejs = require('ejs');
 const fs = require('fs-extra');
 const path = require('path');
-const nanoid = require('nanoid');
 const slugify = require('slugify');
 const meow = require('meow');
 
@@ -31,13 +30,17 @@ const cli = meow(`
     }
 });
 
-const testTemplate = ejs.compile(fs.readFileSync(path.resolve(__dirname, './test-template.js'), 'UTF-8'));
-const entryTemplate = ejs.compile(fs.readFileSync(path.resolve(__dirname, './entry-template.js'), 'UTF-8'));
+const testTemplate = ejs.compile(fs.readFileSync(path.resolve(__dirname, './test-template.ejs'), 'UTF-8'));
+const entryTemplate = ejs.compile(fs.readFileSync(path.resolve(__dirname, './entry-template.ejs'), 'UTF-8'));
 const vrtDir = path.resolve('.vrt');
 const vrtTestsDir = path.resolve(vrtDir, '__tests__');
 const vrtGlobalConfig = cli.flags.config
     ? require(path.resolve(cli.flags.config))
-    : require(path.resolve('./vrt.config'));
+    : (
+        fs.existsSync(path.resolve('./vrt.config.js'))
+            ? require(path.resolve('./vrt.config'))
+            : {}
+    );
 
 const webpackConfig = [];
 const testFiles = [];
@@ -63,8 +66,7 @@ glob(path.resolve('./!(node_modules)/**/.vrt.js'), { absolute: true }, async (er
             || [{ name: componentName }];
 
         presets.map(({ name }, presetIndex) => {
-            const id = nanoid(5);
-            const componentNameWithId = `${componentName}_${id}`;
+            const componentNameWithId = `${componentName}_${slugify(name)}`;
             const entryFile = path.resolve(vrtDir, `${componentNameWithId}.entry.js`);
             const testFile = path.resolve(vrtTestsDir, `${componentNameWithId}.test.js`);
 
@@ -73,7 +75,8 @@ glob(path.resolve('./!(node_modules)/**/.vrt.js'), { absolute: true }, async (er
                 file: `${componentNameWithId}.html`,
                 screensDir: path.resolve(componentDir, '__screenshots__'),
                 describe: path.parse(path.parse(path.resolve(componentDir, '__screenshots__')).dir).base + '/__screenshots__',
-                snapshotName: slugify(name)
+                snapshotName: slugify(name),
+                ci: cli.flags.ci
             });
             const entryFileContent = entryTemplate({
                 configFile,
