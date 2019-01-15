@@ -1,3 +1,3 @@
 module.exports = {
-    main: './'
+    main: 'badge.js'
 };

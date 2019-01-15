@@ -1,5 +1,5 @@
 module.exports = {
-    main: './',
+    main: 'button',
     presets: [
         {
             name: 'primary',
@@ -29,7 +29,13 @@ module.exports = {
                 text: 'click me'
             }
         },
-        ,
+        {
+            name: 'button with badge',
+            props: {
+                type: 'badge',
+                text: 'click me'
+            }
+        },
         {
             name: 'no type',
             props: {

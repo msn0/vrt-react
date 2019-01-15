@@ -1,0 +1,12 @@
+{
+  "name": "styled-components-example",
+  "description": "styled-components example",
+  "scripts": {
+    "test": "node ../.."
+  },
+  "dependencies": {
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "styled-components": "^4.1.3"
+  }
+}

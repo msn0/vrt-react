@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
 .button {
-    display: inline-block;
+    display: flex;
+    align-items: center;
     font-weight: 400;
     color: #212529;
     text-align: center;
@@ -42,4 +43,14 @@
     color: #fff;
     background-color: #dc3545;
     border-color: #dc3545;
+}
+
+.button--badge {
+    color: #000000;
+    border: 1px solid lightgray;
+}
+
+.badge-wrapper {
+    display: flex;
+    margin-right: 16px;
 }
