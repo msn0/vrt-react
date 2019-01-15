@@ -24,7 +24,8 @@ describe('<%= describe %>', () => {
 
         expect(image).toMatchImageSnapshot({
             <% if (ci) { %>
-                customDiffConfig: { threshold: 0.5 },
+                failureThreshold: '0.5',
+                failureThresholdType: 'percent',
             <% } %>
             customSnapshotsDir: '<%= screensDir %>',
             customSnapshotIdentifier: '<%= snapshotName %>'
