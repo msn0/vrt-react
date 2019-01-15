@@ -3,7 +3,7 @@
 for dir in `ls -d $PWD/examples/*/`;
 do
     cd $dir
-    npm i && npm t -- --fail --ci
+    npm i && npm t -- --ci --fail
     STATUS=$?
     if [ $STATUS -ne 0 ]; then
         exit $STATUS
