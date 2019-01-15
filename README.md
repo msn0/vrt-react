@@ -1,6 +1,7 @@
+ 
 <p align="center">
-    Take screenshots of your React components <br>
-    and <a href="https://github.com/msn0/vrt-react/pull/1/files?short_path=489ed59#diff-489ed59d18f1b0d9e42b39101ae65623">compare them in pull request</a> like a boss!
+    Take screenshots 📸 of React components.<br>
+    Push it and <a href="https://github.com/msn0/vrt-react/pull/1/files?short_path=489ed59#diff-489ed59d18f1b0d9e42b39101ae65623">compare images in pull request</a>.
 </p>
 
 <p align="center">
