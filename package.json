@@ -1,6 +1,6 @@
 {
   "name": "@vrt/react",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Screenshot React components. Push it and compare images in pull request.",
   "main": "index.js",
   "bin": {
