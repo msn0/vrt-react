@@ -92,7 +92,8 @@ glob(path.resolve('./!(node_modules)/**/.vrt.js'), { absolute: true }, async (er
                 entry: entryFile,
                 outputPath: vrtDir,
                 outputFilename: `${componentNameWithId}.bundle.js`,
-                loaders: vrtGlobalConfig.webpack && vrtGlobalConfig.webpack.loaders || []
+                loaders: vrtGlobalConfig.webpack && vrtGlobalConfig.webpack.loaders || [],
+                resolve: vrtGlobalConfig.webpack && vrtGlobalConfig.webpack.resolve || undefined
             }));
             testFiles.push(testFile);
         });

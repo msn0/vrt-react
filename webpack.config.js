@@ -3,7 +3,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.exports = function ({ entry, outputPath, outputFilename, componentNameWithId, loaders = [] }) {
+module.exports = function ({ entry, outputPath, outputFilename, componentNameWithId, loaders = [], resolve }) {
     const rules = [
         {
             test: /.*\.jsx?$/,
@@ -18,7 +18,7 @@ module.exports = function ({ entry, outputPath, outputFilename, componentNameWit
         }
     ].concat(loaders);
 
-    return {
+    const config = {
         mode: 'production',
         entry,
         output: {
@@ -35,4 +35,10 @@ module.exports = function ({ entry, outputPath, outputFilename, componentNameWit
             })
         ]
     };
+
+    if (resolve) {
+        config.resolve = resolve;
+    }
+
+    return config;
 };
