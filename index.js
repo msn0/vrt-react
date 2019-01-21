@@ -65,7 +65,7 @@ glob(path.resolve('./!(node_modules)/**/.vrt.js'), { absolute: true }, async (er
             && config.presets
             || [{ name: componentName }];
 
-        presets.map(({ name }, presetIndex) => {
+        presets.map(({ name, namedImport }, presetIndex) => {
             const componentNameWithId = `${componentName}_${slugify(name)}`;
             const entryFile = path.resolve(vrtDir, `${componentNameWithId}.entry.js`);
             const testFile = path.resolve(vrtTestsDir, `${componentNameWithId}.test.js`);
@@ -81,7 +81,8 @@ glob(path.resolve('./!(node_modules)/**/.vrt.js'), { absolute: true }, async (er
             const entryFileContent = entryTemplate({
                 configFile,
                 componentFile,
-                presetIndex
+                presetIndex,
+                namedImport
             });
 
             fs.writeFileSync(testFile, testFileContent);
