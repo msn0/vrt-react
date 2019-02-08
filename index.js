@@ -18,6 +18,7 @@ const cli = meow(`
 
 	Options
       --fail    don't update snapshots, fail if they don't match
+      --watch   keep the server running, watching and recompiling your files
       --config  path to config file
 `, {
     flags: {
@@ -111,7 +112,14 @@ glob(path.resolve('./!(node_modules)/**/.vrt.js'), { absolute: true }, async (er
             '--runTestsByPath'
         ].filter(Boolean).concat(testFiles));
 
-        server.close();
+        if (!cli.flags.watch) {
+            server.close();
+            fs.removeSync(vrtDir);
+        }
+    });
+
+    process.on('SIGINT', () => {
         fs.removeSync(vrtDir);
+        process.exit();
     });
 });
