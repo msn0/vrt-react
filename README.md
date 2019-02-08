@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-    <img align=center width=600 src="https://pli.io/264TdW.gif" alt="compare screenshots" />
+    <img align=center width=600 src="https://raw.githack.com/msn0/vrt-react/master/compare.gif" alt="compare screenshots" />
 </p>
 
 # 📸 @vrt/react 
