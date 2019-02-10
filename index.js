@@ -24,6 +24,9 @@ const cli = meow(`
         fail: {
             type: 'boolean'
         },
+        watch: {
+            type: 'boolean'
+        },
         config: {
             type: 'string'
         }
