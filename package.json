@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/msn0/vrt-react#readme",
   "devDependencies": {
+    "ava": "^1.2.1",
     "eslint-config-helmut": "^3.0.0",
     "eslint-plugin-react": "^7.12.3"
   },
