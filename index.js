@@ -79,8 +79,7 @@ glob(path.resolve('./!(node_modules)/**/.vrt.js'), { absolute: true }, async (er
                 file: `${componentNameWithId}.html`,
                 screensDir: path.resolve(componentDir, '__screenshots__'),
                 describe: path.parse(path.parse(path.resolve(componentDir, '__screenshots__')).dir).base + '/__screenshots__',
-                snapshotName: slugify(name),
-                ci: cli.flags.ci
+                snapshotName: slugify(name)
             });
             const entryFileContent = entryTemplate({
                 configFile,
