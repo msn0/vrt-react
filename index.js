@@ -6,7 +6,6 @@ const getWebpackConfig = require('./webpack.config');
 const jest = require('jest');
 const glob = require('glob');
 const getPort = require('get-port');
-const ejs = require('ejs');
 const fs = require('fs-extra');
 const path = require('path');
 const slugify = require('slugify');
