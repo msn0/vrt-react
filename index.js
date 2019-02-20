@@ -10,8 +10,8 @@ const fs = require('fs-extra');
 const path = require('path');
 const slugify = require('slugify');
 const meow = require('meow');
-const { testTemplateCompiler } = require('./lib/template/test-template');
-const { entryTemplateCompiler } = require('./lib/template/entry-template');
+const { testTemplateCompiler } = require('./lib/templates/test/template');
+const { entryTemplateCompiler } = require('./lib/templates/entry/template');
 
 const cli = meow(`
 	Usage
