@@ -13,7 +13,7 @@
     "vrt": "./index.js"
   },
   "scripts": {
-    "test": "eslint --fix . && ./examples/test.sh"
+    "test": "ava --verbose && eslint --fix . && ./examples/test.sh"
   },
   "repository": {
     "type": "git",
