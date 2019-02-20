@@ -12,6 +12,7 @@ const path = require('path');
 const slugify = require('slugify');
 const meow = require('meow');
 const { testTemplateCompiler } = require('./lib/template/test-template');
+const { entryTemplateCompiler } = require('./lib/template/entry-template');
 
 const cli = meow(`
 	Usage
@@ -36,7 +37,7 @@ const cli = meow(`
 });
 
 const testTemplate = testTemplateCompiler();
-const entryTemplate = ejs.compile(fs.readFileSync(path.resolve(__dirname, './entry-template.ejs'), 'UTF-8'));
+const entryTemplate = entryTemplateCompiler();
 const vrtDir = path.resolve('.vrt');
 const vrtTestsDir = path.resolve(vrtDir, '__tests__');
 const vrtGlobalConfig = cli.flags.config
@@ -70,8 +71,8 @@ glob(path.resolve('./!(node_modules)/**/.vrt.js'), { absolute: true }, async (er
             && config.presets
             || [{ name: componentName }];
 
-        presets.map(({ name, namedImport }, presetIndex) => {
-            const componentNameWithId = `${componentName}_${slugify(name)}`;
+        presets.map((preset, presetIndex) => {
+            const componentNameWithId = `${componentName}_${slugify(preset.name)}`;
             const entryFile = path.resolve(vrtDir, `${componentNameWithId}.entry.js`);
             const testFile = path.resolve(vrtTestsDir, `${componentNameWithId}.test.js`);
 
@@ -79,14 +80,15 @@ glob(path.resolve('./!(node_modules)/**/.vrt.js'), { absolute: true }, async (er
                 port,
                 componentNameWithId,
                 componentDir,
-                name
+                name: preset.name
             });
 
             const entryFileContent = entryTemplate({
                 configFile,
-                componentFile,
+                componentDir,
                 presetIndex,
-                namedImport
+                namedImport: preset.namedImport,
+                vrtDir
             });
 
             fs.writeFileSync(testFile, testFileContent);
