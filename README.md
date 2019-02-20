@@ -1,4 +1,4 @@
- 
+
 <p align="center">
     📸<br>
     Take screenshots of React components.<br>
@@ -13,7 +13,7 @@
     <img align=center width=600 src="https://raw.githack.com/msn0/vrt-react/master/compare.gif" alt="compare screenshots" />
 </p>
 
-# 📸 @vrt/react 
+# 📸 @vrt/react
 
 ## Motivation
 
@@ -155,6 +155,35 @@ module.exports = {
 We save this file under our project's root directory and give it the name `vrt.config.js`. If you don't use webpack and don't have these loaders as dependencies you need to install them.
 
 Next we are ready to run `npx vrt`.
+
+### Components with named imports
+
+If your component exposes named import, e.g.
+
+```jsx
+import React from 'react';
+
+export function MyNamedcomponent () {
+    // ...
+}
+```
+
+then `namedImport` option should be used, e.g.
+
+```js
+module.exports = {
+    main: 'my-named-component',
+    presets: [
+        {
+            name: 'simplest case',
+            namedImport: 'MyNamedComponent',
+            // ...
+        }
+    ]
+}
+```
+
+### Custom webpack loaders
 
 If your component requires any other loaders to make it working - just add them to `vrt.config.js`. Please note that you don't need to add `babel-loader` - it's already added to make `@vrt/react` understand ES6 syntax.
 
