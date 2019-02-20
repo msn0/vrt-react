@@ -11,6 +11,7 @@ const fs = require('fs-extra');
 const path = require('path');
 const slugify = require('slugify');
 const meow = require('meow');
+const { testTemplateCompiler } = require('./lib/template/test-template');
 
 const cli = meow(`
 	Usage
@@ -34,7 +35,7 @@ const cli = meow(`
     }
 });
 
-const testTemplate = ejs.compile(fs.readFileSync(path.resolve(__dirname, './test-template.ejs'), 'UTF-8'));
+const testTemplate = testTemplateCompiler();
 const entryTemplate = ejs.compile(fs.readFileSync(path.resolve(__dirname, './entry-template.ejs'), 'UTF-8'));
 const vrtDir = path.resolve('.vrt');
 const vrtTestsDir = path.resolve(vrtDir, '__tests__');
@@ -76,11 +77,11 @@ glob(path.resolve('./!(node_modules)/**/.vrt.js'), { absolute: true }, async (er
 
             const testFileContent = testTemplate({
                 port,
-                file: `${componentNameWithId}.html`,
-                screensDir: path.resolve(componentDir, '__screenshots__'),
-                describe: path.parse(path.parse(path.resolve(componentDir, '__screenshots__')).dir).base + '/__screenshots__',
-                snapshotName: slugify(name)
+                componentNameWithId,
+                componentDir,
+                name
             });
+
             const entryFileContent = entryTemplate({
                 configFile,
                 componentFile,
