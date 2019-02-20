@@ -21,6 +21,7 @@ const cli = meow(`
       --fail    don't update snapshots, fail if they don't match
       --watch   keep the server running, watching and recompiling your files
       --config  path to config file
+      --dev     make webpack create dev bundles
 `, {
     flags: {
         fail: {
@@ -30,6 +31,9 @@ const cli = meow(`
             type: 'boolean'
         },
         config: {
+            type: 'string'
+        },
+        dev: {
             type: 'string'
         }
     }
@@ -47,7 +51,7 @@ const vrtGlobalConfig = cli.flags.config
             : {}
     );
 
-const webpackConfig = [];
+const webpackConfigs = [];
 const testFiles = [];
 
 if (!fs.existsSync(vrtDir)) {
@@ -93,7 +97,8 @@ glob(path.resolve('./!(node_modules)/**/.vrt.js'), { absolute: true }, async (er
             fs.writeFileSync(testFile, testFileContent);
             fs.writeFileSync(entryFile, entryFileContent);
 
-            webpackConfig.push(getWebpackConfig({
+            webpackConfigs.push(getWebpackConfig({
+                isDevMode: cli.flags.dev,
                 componentNameWithId,
                 entry: entryFile,
                 outputPath: vrtDir,
@@ -105,7 +110,7 @@ glob(path.resolve('./!(node_modules)/**/.vrt.js'), { absolute: true }, async (er
         });
     });
 
-    const server = new WebpackDevServer(Webpack(webpackConfig), { stats: 'errors-only' });
+    const server = new WebpackDevServer(Webpack(webpackConfigs), { stats: 'errors-only' });
 
     server.listen(port, 'localhost', async () => {
         await jest.run([
