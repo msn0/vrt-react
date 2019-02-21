@@ -32,10 +32,10 @@ $ npm i --global @vrt/react
 ```sh
   $ vrt --help
 
-	Usage
-	  $ vrt [<file|glob> ...]
+    Usage
+      $ vrt [<file|glob> ...]
 
-	Options
+    Options
       --fail    don't update snapshots, fail if they don't match
       --watch   keep the server running, watching and recompiling your files
       --config  path to config file
