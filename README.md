@@ -24,10 +24,30 @@ GitHub, GitLab and BitBucket do have image diff tools. Once someone created a pu
 ## Installation
 
 ```sh
-$ npm i @vrt/react -D
+$ npm i --global @vrt/react
 ```
 
 ## Usage
+
+```sh
+  $ vrt --help
+
+	Usage
+	  $ vrt [<file|glob> ...]
+
+	Options
+      --fail    don't update snapshots, fail if they don't match
+      --watch   keep the server running, watching and recompiling your files
+      --config  path to config file
+      --dev     make webpack create dev bundles
+
+    Examples
+      $ vrt
+      $ vrt src/button/
+      $ vrt src/button/.vrt.js
+      $ vrt --watch
+      $ vrt --config config/vrt.config.js --watch src/**/.vrt.js
+```
 
 ### Basic example
 
