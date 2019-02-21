@@ -4,7 +4,7 @@ const Webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server/lib/Server');
 const getWebpackConfig = require('./webpack.config');
 const jest = require('jest');
-const glob = require('glob');
+const globby = require('globby');
 const getPort = require('get-port');
 const fs = require('fs-extra');
 const path = require('path');
@@ -14,14 +14,23 @@ const { testTemplateCompiler } = require('./lib/templates/test/template');
 const { entryTemplateCompiler } = require('./lib/templates/entry/template');
 
 const cli = meow(`
+  $ vrt --help
+
 	Usage
-	  $ npx vrt
+	  $ vrt [<file|glob> ...]
 
 	Options
       --fail    don't update snapshots, fail if they don't match
       --watch   keep the server running, watching and recompiling your files
       --config  path to config file
       --dev     make webpack create dev bundles
+
+    Examples
+      $ vrt
+      $ vrt src/button/
+      $ vrt src/button/.vrt.js
+      $ vrt --watch
+      $ vrt --config config/vrt.config.js --watch src/**/.vrt.js
 `, {
     flags: {
         fail: {
@@ -62,7 +71,16 @@ if (!fs.existsSync(vrtTestsDir)) {
     fs.mkdirSync(vrtTestsDir);
 }
 
-glob(path.resolve('./!(node_modules)/**/.vrt.js'), { absolute: true }, async (error, files) => {
+const paths = cli.input.length
+    ? cli.input.map(p => {
+        if (fs.lstatSync(p).isDirectory()) {
+            return path.join(path.resolve(p), '.vrt.js');
+        }
+        return path.resolve(p);
+    })
+    : path.resolve('./!(node_modules)/**/.vrt.js');
+
+globby(paths).then(async files => {
     const port = await getPort();
     files.forEach(async (configFile) => {
         const config = require(configFile);
