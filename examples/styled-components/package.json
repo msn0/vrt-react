@@ -2,7 +2,7 @@
   "name": "styled-components-example",
   "description": "styled-components example",
   "scripts": {
-    "test": "node ../.."
+    "test": "vrt"
   },
   "dependencies": {
     "react": "^16.7.0",
