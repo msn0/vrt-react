@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.6",
+    "globby": "^9.0.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0"
   },
