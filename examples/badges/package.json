@@ -2,7 +2,7 @@
   "name": "badges",
   "description": "Badges example",
   "scripts": {
-    "test": "node ../.."
+    "test": "vrt"
   },
   "dependencies": {
     "classnames": "^2.2.6",

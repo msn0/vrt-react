@@ -2,7 +2,7 @@
   "name": "create-react-app",
   "description": "create-react-app example",
   "scripts": {
-    "test": "node ../.."
+    "test": "vrt --config config/vrt.config.js"
   },
   "dependencies": {
     "react": "^16.7.0",
