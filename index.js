@@ -10,8 +10,10 @@ const fs = require('fs-extra');
 const path = require('path');
 const slugify = require('slugify');
 const meow = require('meow');
+const chalk = require('chalk');
 const { testTemplateCompiler } = require('./lib/templates/test/template');
 const { entryTemplateCompiler } = require('./lib/templates/entry/template');
+const { version } = require('./package.json');
 
 const cli = meow(`
   $ vrt --help
@@ -80,6 +82,8 @@ const paths = cli.input.length
     })
     : path.resolve('./!(node_modules)/**/.vrt.js');
 
+console.log(`${chalk.bgMagenta(chalk.white.bold(`vrt@${version}`))} is running with pattern: ${paths}`);
+
 globby(paths).then(async files => {
     const port = await getPort();
     files.forEach(async (configFile) => {
@@ -92,28 +96,30 @@ globby(paths).then(async files => {
             && config.presets
             || [{ name: componentName }];
 
+        console.log();
+        console.log(chalk.bold(componentName));
         presets.map((preset, presetIndex) => {
             const componentNameWithId = `${componentName}_${slugify(preset.name)}`;
             const entryFile = path.resolve(vrtDir, `${componentNameWithId}.entry.js`);
             const testFile = path.resolve(vrtTestsDir, `${componentNameWithId}.test.js`);
 
-            const testFileContent = testTemplate({
+            const compiledTestTemplate = testTemplate({
                 port,
                 componentNameWithId,
                 componentDir,
                 name: preset.name
             });
 
-            const entryFileContent = entryTemplate({
+            const compiledEntryTemplate = entryTemplate({
                 configFile,
                 componentDir,
                 presetIndex,
                 namedImport: preset.namedImport,
                 vrtDir
             });
-
-            fs.writeFileSync(testFile, testFileContent);
-            fs.writeFileSync(entryFile, entryFileContent);
+            console.log(`  ${preset.name}: ${compiledTestTemplate.pageUrl}`);
+            fs.writeFileSync(testFile, compiledTestTemplate.content);
+            fs.writeFileSync(entryFile, compiledEntryTemplate);
 
             webpackConfigs.push(getWebpackConfig({
                 isDevMode: cli.flags.dev,
@@ -128,12 +134,13 @@ globby(paths).then(async files => {
         });
     });
 
+    console.log();
+
     const server = new WebpackDevServer(Webpack(webpackConfigs), { stats: 'errors-only' });
 
     server.listen(port, 'localhost', async () => {
         await jest.run([
             '--silent',
-            '--verbose',
             cli.flags.fail ? '' : '--updateSnapshot',
             '--detectOpenHandles',
             '--runTestsByPath'
