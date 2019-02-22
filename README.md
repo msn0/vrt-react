@@ -47,6 +47,7 @@ $ npm i --global @vrt/react
       $ vrt src/button/.vrt.js
       $ vrt --watch
       $ vrt --config config/vrt.config.js --watch src/**/.vrt.js
+      $ npx vrt --watch --dev -- src/components/messages
 ```
 
 ### Basic example
