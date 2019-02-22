@@ -50,6 +50,30 @@ $ npm i --global @vrt/react
       $ npx vrt --watch --dev -- src/components/messages
 ```
 
+Running `@vrt/react` in `--watch` mode will create sandboxed environment for each of the components, e.g.
+
+```sh
+$ vrt --watch
+
+vrt@0.7.0 is running with pattern: /Users/foo.bar/work/badges/!(node_modules)/**/.vrt.js
+
+badge
+  badge: http://localhost:56211/badge_badge.html
+
+badge-with-props
+  no message: http://localhost:56211/badge-with-props_no-message.html
+  one message: http://localhost:56211/badge-with-props_one-message.html
+  some messages: http://localhost:56211/badge-with-props_some-messages.html
+
+button
+  primary: http://localhost:56211/button_primary.html
+  secondary: http://localhost:56211/button_secondary.html
+  success: http://localhost:56211/button_success.html
+  danger: http://localhost:56211/button_danger.html
+  badge: http://localhost:56211/button_badge.html
+  no type: http://localhost:56211/button_no-type.html
+```
+
 ### Basic example
 
 Let's assume most simple case - we have a very simple `badge.js` component which doesn't take any props and doesn't have dependencies (except React), e.g.
