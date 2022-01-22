@@ -46,7 +46,7 @@
     "jest-image-snapshot": "^2.7.0",
     "jest-tap-reporter": "^1.9.0",
     "meow": "^5.0.0",
-    "nanoid": "^2.0.0",
+    "nanoid": "^3.1.31",
     "puppeteer": "^1.11.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
